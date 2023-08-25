@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://ckm0gidsmua3s"]
+[gd_scene load_steps=12 format=3 uid="uid://ckm0gidsmua3s"]
 
 [ext_resource type="Texture2D" uid="uid://bd1uwfpj20eek" path="res://Art/Missile/frame_1.png" id="1_2dq5i"]
 [ext_resource type="Script" path="res://Scripts/missile.gd" id="1_2tplf"]
 [ext_resource type="Material" uid="uid://dnfkqvrkxnejw" path="res://unlit.tres" id="1_px1ab"]
 [ext_resource type="PackedScene" uid="uid://bycjlh8dvr7cw" path="res://Nodes/particle_test.tscn" id="2_2tvkv"]
 [ext_resource type="Texture2D" uid="uid://ctwkr3rt34ijr" path="res://Art/Missile/frame_2.png" id="2_q6y1l"]
+[ext_resource type="PackedScene" uid="uid://bk5ckt4tvk8rk" path="res://Nodes/plus30.tscn" id="3_b46am"]
 [ext_resource type="Texture2D" uid="uid://cyc30mi4q1wsn" path="res://Art/Missile/frame_3.png" id="3_ordg4"]
 [ext_resource type="Texture2D" uid="uid://c6cp35qtmgpu3" path="res://Art/Missile/frame_4.png" id="4_olu5p"]
 
@@ -40,6 +41,7 @@ script = ExtResource("1_2tplf")
 speed = 600.0
 turn_rate = 0.02
 explosionNode = ExtResource("2_2tvkv")
+missileBonusNode = ExtResource("3_b46am")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

@@ -71,7 +71,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("pause"):
 		GameState.paused = not GameState.paused
 	
-	if Input.is_action_pressed("dash") && GameState.selectedPower == "time":
+	if Input.is_action_pressed("dash") && GameState.selectedPower == "time" && not GameState.paused:
 		GameState.timeScale = lerpf(GameState.timeScale, 0.5, 0.1)
 	else:
 		GameState.timeScale = lerpf(GameState.timeScale, 1, 0.1)

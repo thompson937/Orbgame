@@ -7,6 +7,7 @@ extends Area2D
 var orient = true
 
 @export var explosionNode: PackedScene
+@export var missileBonusNode : PackedScene
 
 var player
 
@@ -44,11 +45,17 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 
 func _on_area_entered(area):
-	explode(true)
+	if area.is_in_group("player"):
+		explode(false)
+	else:
+		explode(true)
 	
 func explode(applyBonus : bool):
 	if applyBonus:
 		GameState.missile_bonus()
+		var plus = missileBonusNode.instantiate()
+		plus.position = position
+		get_parent().add_child(plus)
 	
 	var boom = explosionNode.instantiate()
 	boom.position = position
