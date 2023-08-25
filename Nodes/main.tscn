@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="5_dw50r"]
 [ext_resource type="Texture2D" uid="uid://dv1bhbohnmyne" path="res://Art/orbgame_binds.png" id="5_yjpa1"]
 [ext_resource type="AudioStream" uid="uid://cldh64a3bthk6" path="res://Audio/Orbgame.mp3" id="6_pbi04"]
-[ext_resource type="PackedScene" uid="uid://bk5ckt4tvk8rk" path="res://Nodes/plus30.tscn" id="11_qcwls"]
+[ext_resource type="Texture2D" uid="uid://1ttxirnsifuf" path="res://Art/orbgame_title.png" id="8_5s2vs"]
 
 [node name="Main" type="Node2D"]
 texture_filter = 1
@@ -69,16 +69,13 @@ grow_vertical = 2
 scale = Vector2(0.65, 0.65)
 texture = ExtResource("5_yjpa1")
 
-[node name="Title" type="Label" parent="Player/HUD/Control/PauseScreen"]
-layout_mode = 0
-anchor_right = 1.0
-offset_left = 32.0
-offset_right = -1395.0
-offset_bottom = 130.0
-grow_horizontal = 2
-theme = ExtResource("4_xj4qc")
-theme_override_font_sizes/font_size = 100
-text = "OrbGame!"
+[node name="Title25" type="TextureRect" parent="Player/HUD/Control/PauseScreen"]
+layout_mode = 1
+offset_right = 693.0
+offset_bottom = 431.0
+texture = ExtResource("8_5s2vs")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="MenuButton" type="Button" parent="Player/HUD/Control/PauseScreen"]
 layout_mode = 0
@@ -159,8 +156,6 @@ stretch_mode = 1
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.427451, 0.427451, 0.427451, 1)
-
-[node name="AnimatedSprite2D" parent="." instance=ExtResource("11_qcwls")]
 
 [connection signal="pressed" from="Player/HUD/Control/PauseScreen/MenuButton" to="Player/HUD/Control/PauseScreen" method="_on_menu_button_pressed"]
 [connection signal="pressed" from="Player/HUD/Control/PauseScreen/ReturnButton" to="Player/HUD/Control/PauseScreen" method="_on_return_button_pressed"]

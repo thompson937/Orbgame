@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bjgwmnvaxfnb"]
+[gd_scene load_steps=8 format=3 uid="uid://bjgwmnvaxfnb"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_ir8uv"]
 [ext_resource type="Theme" uid="uid://dtxqxytnxtioo" path="res://the_theme.tres" id="1_n753q"]
+[ext_resource type="Texture2D" uid="uid://1ttxirnsifuf" path="res://Art/orbgame_title.png" id="2_hddp3"]
 [ext_resource type="Texture2D" uid="uid://lkv8xpo6fc1m" path="res://Art/ground_tile.png" id="2_ii253"]
 [ext_resource type="Texture2D" uid="uid://d36dyphvl53uy" path="res://Art/ground_tile_single.png" id="3_x4x6o"]
 [ext_resource type="AudioStream" uid="uid://dwyuv1vd0inje" path="res://Audio/menues.ogg" id="4_rolwh"]
@@ -33,7 +34,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="TitleCard" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -556.5
+offset_right = 556.5
+offset_bottom = 626.0
+grow_horizontal = 2
+texture = ExtResource("2_hddp3")
+expand_mode = 1
+stretch_mode = 4
+
 [node name="Title" type="Label" parent="Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5

@@ -1,5 +1,7 @@
 extends Node
 
+# Highscore: 13069
+
 var playerHealth = 5
 var selectedPower = "time"
 var score = 0

@@ -14,7 +14,7 @@ func _process(delta):
 
 func _on_missile_spawner_timeout():
 	if GameState.paused:
-		pass
+		return
 	
 	var missile = missileAsset.instantiate()
 	missile.player = $Player
