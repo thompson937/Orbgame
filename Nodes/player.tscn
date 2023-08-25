@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ctv8f0y3h1t25"]
+[gd_scene load_steps=12 format=3 uid="uid://ctv8f0y3h1t25"]
 
 [ext_resource type="Script" path="res://Scripts/player_movement.gd" id="1_5e78p"]
 [ext_resource type="Texture2D" uid="uid://ml7brox6r46e" path="res://Art/orb_body.png" id="1_8etot"]
@@ -8,6 +8,8 @@
 [ext_resource type="AudioStream" uid="uid://bsinwwarcqwn8" path="res://Audio/fortnite_ded.wav" id="5_yc7dk"]
 [ext_resource type="PackedScene" uid="uid://dd65sgirq7jry" path="res://Particles/dash.tscn" id="6_77ls4"]
 [ext_resource type="Texture2D" uid="uid://clu1gx5xv2gw4" path="res://Art/light_source.png" id="7_cvjxi"]
+[ext_resource type="PackedScene" uid="uid://c7a86xa0fk18d" path="res://Nodes/health_plinth.tscn" id="9_e7lm4"]
+[ext_resource type="Script" path="res://Scripts/HealthDisplay.gd" id="10_blbar"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bo7tv"]
 radius = 32.0
@@ -48,5 +50,9 @@ shadow_color = Color(0.136826, 0.136826, 0.136826, 0)
 shadow_filter = 1
 shadow_filter_smooth = 10.0
 texture = ExtResource("7_cvjxi")
+
+[node name="HealthDisplay" type="Node2D" parent="."]
+script = ExtResource("10_blbar")
+healthOrb = ExtResource("9_e7lm4")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

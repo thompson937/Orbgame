@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7a86xa0fk18d"]
+
+[ext_resource type="Texture2D" uid="uid://b4se0ifqy6njb" path="res://Art/orb_healthmeter.png" id="1_fixdo"]
+
+[node name="HealthPlinth" type="Sprite2D"]
+texture_filter = 1
+texture = ExtResource("1_fixdo")
