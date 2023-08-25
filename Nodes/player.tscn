@@ -30,7 +30,7 @@ lookMultiplier = 5.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_bo7tv")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="DeathSound" type="AudioStreamPlayer" parent="." groups=["player"]]
 stream = ExtResource("5_yc7dk")
 volume_db = 3.5
 bus = &"Effects"

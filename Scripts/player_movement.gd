@@ -5,27 +5,43 @@ var lastInputs = Vector2.ZERO
 
 @export var speed = 50
 
-var helf = 5
-var ded = false
-var paused = false
-
 var immuneTime = 1.0
 var dashTime = -10.0
 @export var dashTimeOut = 4
 var playedDashAnim = false
+var playedDeathSound = false
 
 func _process(delta):
+	# Once GameState is finished this resets the player
 	
-	if paused:
+	if GameState.resetComplete:
+		GameState.resetComplete = false
+		reset_player()
+	
+	# Death handling
+	
+	if GameState.gameOver and not playedDeathSound:
+		playedDeathSound = true
+		hide()
+		$DeathSound.play()
+	
+	# Give player i-frames when paused
+	
+	if GameState.paused:
 		immuneTime = 0.2
 	
 	inputDirections = Vector2.ZERO
+	
+	# Dash logic
 	
 	if dashTime > 0:
 		inputDirections = lastInputs
 		immuneTime = 0.1
 	
-	dashTime -= delta
+	if not GameState.paused:
+		dashTime -= delta
+	
+	# i-frame color changes
 	
 	if immuneTime > 0:
 		immuneTime -= delta
@@ -33,15 +49,7 @@ func _process(delta):
 	else:
 		$Sprite2D.modulate = Color8(255, 255, 255, 255)
 	
-	var healthBar = $HUD/Control/ProgressBar.value
-	
-	$HUD/Control/ProgressBar.value = healthBar + (helf * 20 - healthBar) * 0.05
-	
-	
-	if ded:
-		if $HUD/Control/ProgressBar.value <= 0.1:
-			$HUD/Control/ProgressBar.value = 0
-		return
+	# Take in inputs
 	
 	if dashTime <= 0:
 		inputDirections.y = Input.get_axis("move_up", "move_down")
@@ -60,7 +68,12 @@ func _process(delta):
 		
 	lastInputs = inputDirections
 	
-	if not paused:
+	if Input.is_action_just_pressed("pause"):
+		GameState.paused = not GameState.paused
+	
+	# Apply gathered inputs
+	
+	if not GameState.paused:
 		position += inputDirections * delta * (speed + (clamp(ceil(dashTime), 0, 1) * 500))
 		
 	position.x = clampf(position.x, -1024 + 16, 1024 - 16)
@@ -70,24 +83,12 @@ func _process(delta):
 func _on_area_entered(area):
 	if area.is_in_group("missile") and immuneTime <= 0:
 		immuneTime = 1
-		helf -= 1
-		print(helf)
+		GameState.playerHealth -= 1
 
-func start():
+func reset_player():
 	immuneTime = 1.0
 	dashTime = -10
 	playedDashAnim = false
-	paused = false
-	ded = false
-	helf = 5
+	playedDeathSound = false
 	show()
 	position = Vector2.ZERO
-	
-func pause():
-	paused = not paused
-
-func ono_ded():
-	hide()
-	$AudioStreamPlayer.play()
-	ded = true
-	

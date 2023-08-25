@@ -1,72 +1,18 @@
 extends Node2D
 
 @export var missileAsset : PackedScene
-var gameRunning = true
-var gamePaused = false
 
-var pauseScreen
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pauseScreen = $Player/HUD/Control/PauseScreen
-	pauseScreen.hide()
-	randomize()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("pause"):
-		gamePaused = not gamePaused
-		pause_game()
-	
-	if $Player.helf <= 0 and gameRunning:
-		end_game()
-
-func new_game():
-	pauseScreen.hide()
-	gameRunning = true
-	$Player.start()
-	$RocketSpawner.start()
-	$Score.start()
-	$ScoreSeconds.start()
-	AudioServer.set_bus_effect_enabled(1, 1, false)
-
-func end_game():
-	pauseScreen.show()
-	gameRunning = false
-	$RocketSpawner.stop()
-	$ScoreSeconds.stop()
-	print("Dead")
-	var childrenToExplode = get_children()
-	
-	for child in childrenToExplode:
-		if "Missile" in child.name:
-			child.explode()
-			
-	$Player.ono_ded()
-	AudioServer.set_bus_effect_enabled(1, 1, true)
-
-func pause_game():
-	if gamePaused:
-		pauseScreen.show()
-		AudioServer.set_bus_effect_enabled(1, 1, true)
+	if GameState.gameOver:
+		GameState.paused = true
 		$RocketSpawner.stop()
-		$ScoreSeconds.stop()
-	else:
-		pauseScreen.hide()
-		AudioServer.set_bus_effect_enabled(1, 1, false)
+	elif GameState.resetComplete:
 		$RocketSpawner.start()
-		$ScoreSeconds.start()
-		
-	$Player.pause()
-	
-	var children = get_children()
-	
-	for child in children:
-		if "Missile" in child.name:
-			child.paused = gamePaused
 
 func _on_missile_spawner_timeout():
+	if GameState.paused:
+		pass
+	
 	var missile = missileAsset.instantiate()
 	missile.player = $Player
 	var spawnPos = Vector2.ZERO
@@ -97,11 +43,3 @@ func _on_missile_spawner_timeout():
 	
 	missile.position = spawnPos
 	add_child(missile)
-
-
-func _on_pause_screen_return_to_game():
-	if gameRunning:
-		gamePaused = false
-		pause_game()
-	else:
-		new_game()

@@ -8,8 +8,6 @@ extends Area2D
 
 var maxTimer = 5.0
 
-var paused = false
-
 var player
 
 func _ready():
@@ -17,7 +15,10 @@ func _ready():
 
 
 func _process(delta):
-	if paused:
+	if GameState.gameOver:
+		explode()
+	
+	if GameState.paused:
 		timer -= delta
 	
 	var direction = player.position - position
@@ -29,12 +30,12 @@ func _process(delta):
 	rotation_diff = clamp(rotation_diff, -turn_rate, turn_rate)
 	
 	#Disable steering
-	if timer >= 0 and not paused:
-		rotation += rotation_diff #/ 4
+	if timer >= 0 and not GameState.paused:
+		rotation += rotation_diff
 	
 	var velocity = Vector2.RIGHT.rotated(rotation)
 	
-	if not paused:
+	if not GameState.paused:
 		position += velocity * delta * speed
 
 
@@ -44,11 +45,10 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 
 func _on_area_entered(area):
-	var scoreCounter = get_parent().get_node("Score")
-	scoreCounter.missile_boom()
 	explode()
 	
 func explode():
+	GameState.missile_bonus()
 	var boom = explosionNode.instantiate()
 	boom.position = position
 	get_parent().add_child(boom)
