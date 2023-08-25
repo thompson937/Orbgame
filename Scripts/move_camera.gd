@@ -4,10 +4,6 @@ extends Camera2D
 
 var sharpPos = Vector2.ZERO
 
-func _ready():
-	pass # Replace with function body.
-
-
 func _process(delta):
 	var player = get_node("/root/Main/Player").position
 	var screenSize = get_viewport_rect().size

@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://ckm0gidsmua3s"]
+[gd_scene load_steps=11 format=3 uid="uid://ckm0gidsmua3s"]
 
 [ext_resource type="Texture2D" uid="uid://bd1uwfpj20eek" path="res://Art/Missile/frame_1.png" id="1_2dq5i"]
 [ext_resource type="Script" path="res://Scripts/missile.gd" id="1_2tplf"]
+[ext_resource type="Material" uid="uid://dnfkqvrkxnejw" path="res://unlit.tres" id="1_px1ab"]
 [ext_resource type="PackedScene" uid="uid://bycjlh8dvr7cw" path="res://Nodes/particle_test.tscn" id="2_2tvkv"]
 [ext_resource type="Texture2D" uid="uid://ctwkr3rt34ijr" path="res://Art/Missile/frame_2.png" id="2_q6y1l"]
 [ext_resource type="Texture2D" uid="uid://cyc30mi4q1wsn" path="res://Art/Missile/frame_3.png" id="3_ordg4"]
@@ -30,6 +31,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_er1ew"]
 size = Vector2(8, 61)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_cr7fb"]
+polygon = PackedVector2Array(38, 0, 30, 5, -24, 5, -24, -5, 30, -5)
+
 [node name="Missile" type="Area2D" groups=["missile"]]
 z_index = 2
 script = ExtResource("1_2tplf")
@@ -39,6 +43,7 @@ explosionNode = ExtResource("2_2tvkv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
+material = ExtResource("1_px1ab")
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_1gej4")
 animation = &"fly"
@@ -51,6 +56,9 @@ shape = SubResource("RectangleShape2D_er1ew")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(5, 2.38419e-07)
 scale = Vector2(1.1, 0.4)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_cr7fb")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

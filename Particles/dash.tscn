@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dd65sgirq7jry"]
+[gd_scene load_steps=8 format=3 uid="uid://dd65sgirq7jry"]
 
 [ext_resource type="Texture2D" uid="uid://c2p5t3rn2m1x7" path="res://Art/magic_boom.png" id="1_b4l47"]
+[ext_resource type="Material" uid="uid://dnfkqvrkxnejw" path="res://unlit.tres" id="1_d1mvr"]
 
 [sub_resource type="Curve" id="Curve_6de58"]
 min_value = -360.0
@@ -32,6 +33,7 @@ scale_curve = SubResource("CurveTexture_ppkco")
 [node name="GPUParticles2D" type="GPUParticles2D"]
 z_index = 1
 texture_filter = 1
+material = ExtResource("1_d1mvr")
 emitting = false
 amount = 1
 process_material = SubResource("ParticleProcessMaterial_ce8e6")
