@@ -1,0 +1,184 @@
+[gd_scene load_steps=11 format=3 uid="uid://bhbrjk61khsph"]
+
+[ext_resource type="Script" path="res://Scripts/game.gd" id="1_71f2l"]
+[ext_resource type="PackedScene" uid="uid://ctv8f0y3h1t25" path="res://Nodes/player.tscn" id="1_al7i7"]
+[ext_resource type="Script" path="res://Scripts/move_camera.gd" id="2_sm8c7"]
+[ext_resource type="PackedScene" uid="uid://ckm0gidsmua3s" path="res://Nodes/missile.tscn" id="3_c6tdd"]
+[ext_resource type="Theme" uid="uid://dtxqxytnxtioo" path="res://the_theme.tres" id="4_xj4qc"]
+[ext_resource type="Texture2D" uid="uid://lkv8xpo6fc1m" path="res://Art/ground_tile.png" id="5_887kl"]
+[ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="5_dw50r"]
+[ext_resource type="Texture2D" uid="uid://dv1bhbohnmyne" path="res://Art/orbgame_binds.png" id="5_yjpa1"]
+[ext_resource type="AudioStream" uid="uid://cldh64a3bthk6" path="res://Audio/Orbgame.mp3" id="6_pbi04"]
+[ext_resource type="PackedScene" uid="uid://doop5un1dht47" path="res://Nodes/score_manager.tscn" id="7_r5phs"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_71f2l")
+missileAsset = ExtResource("3_c6tdd")
+
+[node name="Player" parent="." instance=ExtResource("1_al7i7")]
+
+[node name="HUD" type="CanvasLayer" parent="Player"]
+
+[node name="Control" type="Control" parent="Player/HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="Player/HUD/Control"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -750.0
+offset_top = 86.0
+offset_right = 750.0
+offset_bottom = 116.0
+grow_horizontal = 2
+mouse_filter = 2
+show_percentage = false
+
+[node name="Label" type="Label" parent="Player/HUD/Control"]
+layout_direction = 1
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_right = 150.0
+offset_bottom = 90.0
+grow_horizontal = 2
+pivot_offset = Vector2(150, 45)
+theme = ExtResource("4_xj4qc")
+theme_override_font_sizes/font_size = 70
+text = "6591"
+horizontal_alignment = 1
+
+[node name="PauseScreen" type="ColorRect" parent="Player/HUD/Control"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.784314)
+script = ExtResource("5_dw50r")
+
+[node name="Background" type="TextureRect" parent="Player/HUD/Control/PauseScreen"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -544.0
+offset_top = -533.0
+offset_right = 194.0
+offset_bottom = 1067.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("5_yjpa1")
+
+[node name="Title" type="Label" parent="Player/HUD/Control/PauseScreen"]
+layout_mode = 0
+anchor_right = 1.0
+offset_left = 32.0
+offset_right = -1395.0
+offset_bottom = 130.0
+grow_horizontal = 2
+theme = ExtResource("4_xj4qc")
+theme_override_font_sizes/font_size = 100
+text = "OrbGame!"
+
+[node name="MenuButton" type="Button" parent="Player/HUD/Control/PauseScreen"]
+layout_mode = 0
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -120.0
+offset_right = 680.0
+offset_bottom = 10.0
+grow_vertical = 2
+tooltip_text = "Exit back to the oddly calm menu"
+focus_neighbor_top = NodePath("../QuitButton")
+focus_neighbor_bottom = NodePath("../ReturnButton")
+mouse_default_cursor_shape = 2
+theme = ExtResource("4_xj4qc")
+theme_override_font_sizes/font_size = 35
+shortcut_in_tooltip = false
+text = "MENU"
+
+[node name="ReturnButton" type="Button" parent="Player/HUD/Control/PauseScreen"]
+layout_mode = 0
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = 40.0
+offset_right = 680.0
+offset_bottom = 170.0
+grow_vertical = 2
+tooltip_text = "Continue the game or retry IDK"
+focus_neighbor_top = NodePath("../MenuButton")
+focus_neighbor_bottom = NodePath("../QuitButton")
+mouse_default_cursor_shape = 2
+theme = ExtResource("4_xj4qc")
+theme_override_font_sizes/font_size = 35
+shortcut_in_tooltip = false
+text = "CONTINUE"
+
+[node name="QuitButton" type="Button" parent="Player/HUD/Control/PauseScreen"]
+layout_mode = 0
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = 200.0
+offset_right = 680.0
+offset_bottom = 330.0
+grow_vertical = 2
+tooltip_text = "Thank you for playing!"
+focus_neighbor_top = NodePath("../ReturnButton")
+focus_neighbor_bottom = NodePath("../MenuButton")
+mouse_default_cursor_shape = 2
+theme = ExtResource("4_xj4qc")
+theme_override_font_sizes/font_size = 35
+shortcut_in_tooltip = false
+text = "QUIT"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Player/HUD/Control/PauseScreen"]
+position = Vector2(960, 540)
+scale = Vector2(50, 30)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.938, 0.938)
+script = ExtResource("2_sm8c7")
+
+[node name="RocketSpawner" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="ScoreSeconds" type="Timer" parent="."]
+autostart = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -5
+texture_filter = 1
+offset_left = -1024.0
+offset_top = -1024.0
+offset_right = 1024.0
+offset_bottom = 1024.0
+texture = ExtResource("5_887kl")
+stretch_mode = 1
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_pbi04")
+autoplay = true
+bus = &"Music"
+
+[node name="Score" parent="." instance=ExtResource("7_r5phs")]
+
+[connection signal="returnToGame" from="Player/HUD/Control/PauseScreen" to="." method="_on_pause_screen_return_to_game"]
+[connection signal="pressed" from="Player/HUD/Control/PauseScreen/MenuButton" to="Player/HUD/Control/PauseScreen" method="_on_menu_button_pressed"]
+[connection signal="pressed" from="Player/HUD/Control/PauseScreen/ReturnButton" to="Player/HUD/Control/PauseScreen" method="_on_return_button_pressed"]
+[connection signal="pressed" from="Player/HUD/Control/PauseScreen/QuitButton" to="Player/HUD/Control/PauseScreen" method="_on_quit_button_pressed"]
+[connection signal="screen_entered" from="Player/HUD/Control/PauseScreen/VisibleOnScreenNotifier2D" to="Player/HUD/Control/PauseScreen" method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="timeout" from="RocketSpawner" to="." method="_on_missile_spawner_timeout"]
+[connection signal="timeout" from="ScoreSeconds" to="Score" method="_on_score_seconds_timeout"]

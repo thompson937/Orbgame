@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://ckm0gidsmua3s"]
+
+[ext_resource type="Texture2D" uid="uid://bd1uwfpj20eek" path="res://Art/Missile/frame_1.png" id="1_2dq5i"]
+[ext_resource type="Script" path="res://Scripts/missile.gd" id="1_2tplf"]
+[ext_resource type="PackedScene" uid="uid://bycjlh8dvr7cw" path="res://Nodes/particle_test.tscn" id="2_2tvkv"]
+[ext_resource type="Texture2D" uid="uid://ctwkr3rt34ijr" path="res://Art/Missile/frame_2.png" id="2_q6y1l"]
+[ext_resource type="Texture2D" uid="uid://cyc30mi4q1wsn" path="res://Art/Missile/frame_3.png" id="3_ordg4"]
+[ext_resource type="Texture2D" uid="uid://c6cp35qtmgpu3" path="res://Art/Missile/frame_4.png" id="4_olu5p"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1gej4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_2dq5i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_q6y1l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ordg4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_olu5p")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_er1ew"]
+size = Vector2(8, 61)
+
+[node name="Missile" type="Area2D" groups=["missile"]]
+z_index = 2
+script = ExtResource("1_2tplf")
+speed = 600.0
+turn_rate = 0.02
+explosionNode = ExtResource("2_2tvkv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_1gej4")
+animation = &"fly"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(7, 0)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_er1ew")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(5, 2.38419e-07)
+scale = Vector2(1.1, 0.4)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

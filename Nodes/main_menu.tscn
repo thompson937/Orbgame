@@ -1,0 +1,113 @@
+[gd_scene load_steps=7 format=3 uid="uid://bjgwmnvaxfnb"]
+
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_ir8uv"]
+[ext_resource type="Theme" uid="uid://dtxqxytnxtioo" path="res://the_theme.tres" id="1_n753q"]
+[ext_resource type="Texture2D" uid="uid://lkv8xpo6fc1m" path="res://Art/ground_tile.png" id="2_ii253"]
+[ext_resource type="Texture2D" uid="uid://d36dyphvl53uy" path="res://Art/ground_tile_single.png" id="3_x4x6o"]
+[ext_resource type="AudioStream" uid="uid://dwyuv1vd0inje" path="res://Audio/menues.ogg" id="4_rolwh"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_73u27"]
+emission_shape = 3
+emission_box_extents = Vector3(1280, 1, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 30.0
+angular_velocity_min = -10.0
+angular_velocity_max = 10.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_min = -720.0
+angle_max = 720.0
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_ir8uv")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -500.0
+offset_right = 500.0
+offset_bottom = 150.0
+grow_horizontal = 2
+theme = ExtResource("1_n753q")
+theme_override_font_sizes/font_size = 240
+text = "OrbGame!"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = 93.0
+offset_right = 320.0
+offset_bottom = 377.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EnterButton" type="Button" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+focus_neighbor_bottom = NodePath("../QuitButton")
+theme = ExtResource("1_n753q")
+theme_override_font_sizes/font_size = 75
+text = "Enter the GAME"
+
+[node name="QuitButton" type="Button" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+focus_neighbor_top = NodePath("../EnterButton")
+focus_neighbor_bottom = NodePath("../EnterButton")
+theme = ExtResource("1_n753q")
+theme_override_font_sizes/font_size = 75
+text = "Exit to OS"
+
+[node name="Background" type="TextureRect" parent="Control"]
+modulate = Color(0.631373, 0.631373, 0.631373, 1)
+z_index = -5
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ii253")
+stretch_mode = 1
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = -2
+texture_filter = 1
+position = Vector2(960, 1500)
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_73u27")
+texture = ExtResource("3_x4x6o")
+lifetime = 100.0
+preprocess = 120.0
+visibility_rect = Rect2(-960, -1500, 1920, 1080)
+draw_order = 0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_rolwh")
+autoplay = true
+bus = &"Music"
+
+[connection signal="pressed" from="Control/VBoxContainer/EnterButton" to="." method="_on_enter_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

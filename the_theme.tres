@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dtxqxytnxtioo"]
+
+[ext_resource type="FontFile" uid="uid://whfy3occn060" path="res://Fonts/ConcertOne-Regular.ttf" id="1_ji1pw"]
+
+[resource]
+default_font = ExtResource("1_ji1pw")
+default_font_size = 20

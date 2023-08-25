@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://ctv8f0y3h1t25"]
+
+[ext_resource type="Script" path="res://Scripts/player_movement.gd" id="1_5e78p"]
+[ext_resource type="Texture2D" uid="uid://ml7brox6r46e" path="res://Art/orb_body.png" id="1_8etot"]
+[ext_resource type="Texture2D" uid="uid://bupcd0a065se6" path="res://Art/orb_eye.png" id="2_svh8v"]
+[ext_resource type="Script" path="res://Scripts/eye_look.gd" id="3_h0455"]
+[ext_resource type="AudioStream" uid="uid://bsinwwarcqwn8" path="res://Audio/fortnite_ded.wav" id="5_yc7dk"]
+[ext_resource type="PackedScene" uid="uid://dd65sgirq7jry" path="res://Particles/dash.tscn" id="6_77ls4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bo7tv"]
+radius = 32.0
+
+[node name="Player" type="Area2D"]
+texture_filter = 1
+script = ExtResource("1_5e78p")
+speed = 500
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_8etot")
+region_enabled = true
+region_rect = Rect2(0, 0, 63, 63)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
+texture = ExtResource("2_svh8v")
+region_enabled = true
+region_rect = Rect2(26, 26, 11, 11)
+script = ExtResource("3_h0455")
+lookMultiplier = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bo7tv")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_yc7dk")
+volume_db = 3.5
+bus = &"Effects"
+
+[node name="DashParticle" parent="." instance=ExtResource("6_77ls4")]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
