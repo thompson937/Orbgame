@@ -28,18 +28,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_12t7j")
 
-[node name="Healthbar" type="ProgressBar" parent="Player/HUD/Control"]
-layout_mode = 0
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -750.0
-offset_top = 86.0
-offset_right = 750.0
-offset_bottom = 116.0
-grow_horizontal = 2
-mouse_filter = 2
-show_percentage = false
-
 [node name="ScoreLabel" type="Label" parent="Player/HUD/Control"]
 layout_direction = 1
 layout_mode = 0

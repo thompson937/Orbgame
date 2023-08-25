@@ -18,9 +18,8 @@ func _process(delta):
 	lerpedScore = floor(lerpedScore)
 	$ScoreLabel.text = str(lerpedScore)
 	$ScoreLabel.rotation = sin(GameState.time * 60) / 700 * intensity
-	var scoreScale = lerpf(1, 1.5, intensity / 100)
+	var scoreScale = lerpf(1, 1.5, float(intensity) / 100)
 	$ScoreLabel.scale = Vector2(scoreScale, scoreScale)
-	$Healthbar.value = GameState.playerHealth * 20
 	
 	intensity += deltaScore
 	intensity -= 1

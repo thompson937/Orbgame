@@ -57,7 +57,7 @@ func _process(delta):
 
 	inputDirections = inputDirections.normalized()
 	
-	if dashTime < -dashTimeOut:
+	if dashTime < -dashTimeOut && GameState.selectedPower == "dash":
 		if not playedDashAnim:
 			$DashParticle.emitting = true
 			playedDashAnim = true
@@ -71,10 +71,15 @@ func _process(delta):
 	if Input.is_action_just_pressed("pause"):
 		GameState.paused = not GameState.paused
 	
+	if Input.is_action_pressed("dash") && GameState.selectedPower == "time":
+		GameState.timeScale = lerpf(GameState.timeScale, 0.5, 0.1)
+	else:
+		GameState.timeScale = lerpf(GameState.timeScale, 1, 0.1)
+	
 	# Apply gathered inputs
 	
 	if not GameState.paused:
-		position += inputDirections * delta * (speed + (clamp(ceil(dashTime), 0, 1) * 500))
+		position += inputDirections * delta * (speed + (clamp(ceil(dashTime), 0, 1) * 500)) *  sqrt(GameState.timeScale)
 		
 	position.x = clampf(position.x, -1024 + 16, 1024 - 16)
 	position.y = clampf(position.y, -1024 + 16, 1024 - 16)

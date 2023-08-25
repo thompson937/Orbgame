@@ -4,27 +4,19 @@ extends Node2D
 var trackedOrbs = []
 
 var prevFrameHealth = 0
-
-var ballsMoving = false
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	prevFrameHealth = GameState.playerHealth
-	for i in GameState.playerHealth:
-		var instance = healthOrb.instantiate()
-		trackedOrbs.append(instance)
-		instance.position = Vector2.ZERO
-		add_child(instance)
 	
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("restart"):
-		GameState.playerHealth -= 1
-	
 	var deltaHealth = GameState.playerHealth - prevFrameHealth
-	if deltaHealth != 0:
+	
+	if deltaHealth > 0:
+		reset_balls()
+	
+	# Failsafe in case balls don't exist
+	
+	if len(trackedOrbs) == 0:
+		return
+	
+	if deltaHealth < 0:
 		var orbToDestroy = trackedOrbs[len(trackedOrbs) - 1]
 		
 		if GameState.playerHealth > 3:
@@ -46,7 +38,14 @@ func _process(delta):
 		trackedOrbs[i].position.y = lerpf(trackedOrbs[i].position.y, wantedPosition.y, 0.1)
 		
 		trackedOrbs[i].position = trackedOrbs[i].position.normalized() * 40
-		#trackedOrbs[i].position.x *= 40
-		#trackedOrbs[i].position.y *= 40
 	
 	prevFrameHealth = GameState.playerHealth
+
+func reset_balls():
+	#prevFrameHealth = GameState.playerHealth
+	trackedOrbs.clear()
+	for i in GameState.playerHealth:
+		var instance = healthOrb.instantiate()
+		trackedOrbs.append(instance)
+		instance.position = Vector2.ZERO
+		add_child(instance)

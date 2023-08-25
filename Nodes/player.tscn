@@ -14,7 +14,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_bo7tv"]
 radius = 32.0
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="Area2D" groups=["player"]]
 texture_filter = 1
 script = ExtResource("1_5e78p")
 speed = 500

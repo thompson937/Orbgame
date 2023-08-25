@@ -12,8 +12,10 @@ func _process(delta):
 	screenEdges.x = (1024 - screenSize.x / 2 / zoom.x)
 	screenEdges.y = (1024 - screenSize.y / 2 / zoom.y)
 	
-	zoom.x = screenSize.x / 1024 / 1.5
-	zoom.y = screenSize.x / 1024 / 1.5
+	var timeScaleZoom = lerpf(1.5, 1, GameState.timeScale)
+	
+	zoom.x = screenSize.x / 1024 / 1.5 * timeScaleZoom
+	zoom.y = screenSize.x / 1024 / 1.5 * timeScaleZoom
 	
 	sharpPos = player
 	
