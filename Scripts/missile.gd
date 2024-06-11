@@ -51,6 +51,7 @@ func _on_area_entered(area):
 		explode(true)
 	
 func explode(applyBonus : bool):
+	GameState.waveAmount -= 1
 	if applyBonus:
 		GameState.missile_bonus()
 		var plus = missileBonusNode.instantiate()

@@ -4,6 +4,8 @@ extends Camera2D
 
 var sharpPos = Vector2.ZERO
 
+var zoomLevel = 1.5
+
 func _process(delta):
 	var player = get_node("/root/Main/Player").position
 	var screenSize = get_viewport_rect().size
@@ -14,8 +16,8 @@ func _process(delta):
 	
 	var timeScaleZoom = lerpf(1.5, 1, GameState.timeScale)
 	
-	zoom.x = screenSize.x / 1024 / 1.5 * timeScaleZoom
-	zoom.y = screenSize.x / 1024 / 1.5 * timeScaleZoom
+	zoom.x = screenSize.x / 1024 / 1.5 * timeScaleZoom * zoomLevel
+	zoom.y = screenSize.x / 1024 / 1.5 * timeScaleZoom * zoomLevel
 	
 	sharpPos = player
 	

@@ -88,7 +88,7 @@ func _process(delta):
 func _on_area_entered(area):
 	if area.is_in_group("missile") and immuneTime <= 0:
 		immuneTime = 1
-		GameState.playerHealth -= 1
+		# GameState.playerHealth -= 1
 
 func reset_player():
 	immuneTime = 1.0
