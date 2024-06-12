@@ -31,7 +31,7 @@ func _process(delta):
 	
 	for i in len(trackedOrbs):
 		var hp = float(len(trackedOrbs))
-		var spin = GameState.time * 4
+		var spin = GameState.time * 10 / sqrt(GameState.playerHealth + 1)
 		wantedPosition = Vector2(sin(spin + PI / hp * 2 * (i + 1)) * 40, cos(spin + PI / hp * 2 * (i + 1)) * 40)
 			
 		trackedOrbs[i].position.x = lerpf(trackedOrbs[i].position.x, wantedPosition.x, 0.1)

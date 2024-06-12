@@ -28,6 +28,8 @@ var scoreTime = 0
 
 var resetComplete = false
 
+var sendMessage = ""
+
 func reset_game():
 	paused = false
 	gameOver = false
@@ -36,6 +38,7 @@ func reset_game():
 	score = 0
 	missilePoints = 0
 	randomize()
+	sendMessage = "WAVE 1"
 	resetComplete = true
 	
 	waveCount = 1
@@ -47,12 +50,13 @@ func reset_game():
 func _process(delta):
 	if waveAmount <= 0 and waveActive:
 		waveActive = false;
-		print("Wave over!")
+		sendMessage = "WAVE " + str(waveCount) + " OVER!"
 	
 	if not waveActive and waveRest <= 0:
-		waveRest = 5
+		waveRest = 10
 	
-	waveRest -= delta
+	if not paused:
+		waveRest -= delta
 	
 	if waveRest < 0.2 and not waveActive:
 		waveActive = true
@@ -63,9 +67,7 @@ func _process(delta):
 		if waveSpawnTime < 0.4:
 			waveSpawnTime = 0.4
 			
-		print("Wave ", waveCount)
-		print("Wave Amount: ", waveAmount)
-		print("Wave Time: ", waveSpawnTime)
+		sendMessage = "WAVE " + str(waveCount)
 	
 	if not paused:
 		time += delta * timeScale

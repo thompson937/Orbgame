@@ -1,22 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://buocrowm35rse"]
+[gd_scene load_steps=3 format=3 uid="uid://buocrowm35rse"]
 
+[ext_resource type="Script" path="res://Scripts/wave_script.gd" id="1_1ltgq"]
 [ext_resource type="FontFile" uid="uid://whfy3occn060" path="res://Fonts/ConcertOne-Regular.ttf" id="1_cxysv"]
 
 [node name="WaveObject" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1720.0
-offset_bottom = -980.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("1_1ltgq")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 1
-offset_right = 203.0
-offset_bottom = 86.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.5
+offset_top = -23.0
+offset_right = 101.5
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_fonts/normal_font = ExtResource("1_cxysv")
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "[center]WAVE 1"
+fit_content = true
+autowrap_mode = 0

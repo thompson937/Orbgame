@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var missileAsset : PackedScene
+@export var waveObject : PackedScene
 
 func _process(delta):
 	$RocketSpawner.wait_time = GameState.waveSpawnTime / GameState.timeScale
@@ -10,6 +11,14 @@ func _process(delta):
 		$RocketSpawner.stop()
 	elif GameState.resetComplete:
 		$RocketSpawner.start()
+	
+	if GameState.sendMessage != "":
+		print(GameState.sendMessage)
+		var waveInstance = waveObject.instantiate()
+		
+		waveInstance.position = $Player.global_position
+		add_child(waveInstance)
+		GameState.sendMessage = ""
 	
 
 func _on_missile_spawner_timeout():

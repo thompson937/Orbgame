@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmmlp0l4qqcmg"]
+
+[ext_resource type="PackedScene" uid="uid://buocrowm35rse" path="res://Nodes/wave_object.tscn" id="1_cjie8"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="WaveObject" parent="." instance=ExtResource("1_cjie8")]
+offset_left = 448.0
+offset_top = 215.0
+offset_right = 448.0
+offset_bottom = 215.0

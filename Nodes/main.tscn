@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://bhbrjk61khsph"]
+[gd_scene load_steps=13 format=3 uid="uid://bhbrjk61khsph"]
 
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_71f2l"]
 [ext_resource type="PackedScene" uid="uid://ctv8f0y3h1t25" path="res://Nodes/player.tscn" id="1_al7i7"]
 [ext_resource type="Script" path="res://Scripts/move_camera.gd" id="2_sm8c7"]
 [ext_resource type="PackedScene" uid="uid://ckm0gidsmua3s" path="res://Nodes/missile.tscn" id="3_c6tdd"]
+[ext_resource type="PackedScene" uid="uid://buocrowm35rse" path="res://Nodes/wave_object.tscn" id="3_swrs2"]
 [ext_resource type="Script" path="res://Scripts/HudManager.gd" id="4_12t7j"]
 [ext_resource type="Theme" uid="uid://dtxqxytnxtioo" path="res://the_theme.tres" id="4_xj4qc"]
 [ext_resource type="Texture2D" uid="uid://lkv8xpo6fc1m" path="res://Art/ground_tile.png" id="5_887kl"]
@@ -16,6 +17,7 @@
 texture_filter = 1
 script = ExtResource("1_71f2l")
 missileAsset = ExtResource("3_c6tdd")
+waveObject = ExtResource("3_swrs2")
 
 [node name="Player" parent="." instance=ExtResource("1_al7i7")]
 
