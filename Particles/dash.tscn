@@ -22,12 +22,10 @@ curve = SubResource("Curve_oxur3")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ce8e6"]
 particle_flag_disable_z = true
 spread = 0.0
-gravity = Vector3(0, 0, 0)
 angular_velocity_min = -1.0
 angular_velocity_max = -1.0
 angular_velocity_curve = SubResource("CurveTexture_a1c4e")
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_ppkco")
 
 [node name="GPUParticles2D" type="GPUParticles2D"]

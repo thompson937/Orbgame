@@ -3,11 +3,12 @@ extends Camera2D
 @export var sensitivity = 1
 
 var sharpPos = Vector2.ZERO
+var smoothedPos : Vector2
 
 var zoomLevel = 1.5
 
 func _process(delta):
-	var player = get_node("/root/Main/Player").position
+	var player = get_node("/root/Main/Player")
 	var screenSize = get_viewport_rect().size
 	
 	var screenEdges = Vector2.ZERO
@@ -19,11 +20,12 @@ func _process(delta):
 	zoom.x = screenSize.x / 1024 / 1.5 * timeScaleZoom * zoomLevel
 	zoom.y = screenSize.x / 1024 / 1.5 * timeScaleZoom * zoomLevel
 	
-	sharpPos = player
+	sharpPos = player.position
 	
 	sharpPos.x = clampf(sharpPos.x, -screenEdges.x, screenEdges.x)
 	sharpPos.y = clampf(sharpPos.y, -screenEdges.y, screenEdges.y)
 	
-	position = position + (sharpPos - position) * 0.05
+	position += (sharpPos - position) * 0.05
+	
 	#position.x = clampf(position.x, -screenEdges.x, screenEdges.x)
 	#position.y = clampf(position.y, -screenEdges.y, screenEdges.y)
