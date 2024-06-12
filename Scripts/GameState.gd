@@ -1,5 +1,6 @@
 extends Node
 
+# Not valid anymore :(
 # Highscore: 13069
 
 var playerHealth = 5
